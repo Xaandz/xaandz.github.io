@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let Me Idealpos That For You</title>
+  <style>
+    body {
+      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    .box {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005a9e;
+    }
+    .typing {
+      font-family: monospace;
+      margin-top: 2rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Let Me Idealpos That For You</h1>
+    <input type="text" id="query" placeholder="Type your question here...">
+    <button onclick="startAnimation()">Show Me</button>
+    <div class="typing" id="typing"></div>
+  </div>
+
+  <script>
+    function startAnimation() {
+      const query = document.getElementById('query').value.trim();
+      if (!query) return;
+
+      const typingDiv = document.getElementById('typing');
+      typingDiv.style.display = 'block';
+      typingDiv.textContent = '';
+
+      let i = 0;
+      function typeChar() {
+        if (i < query.length) {
+          typingDiv.textContent += query[i];
+          i++;
+          setTimeout(typeChar, 100);
+        } else {
+          setTimeout(() => {
+            const searchUrl = 'https://portal.idealpos.com.au/app/customers/search?query=' + encodeURIComponent(query);
+            window.location.href = searchUrl;
+          }, 800);
+        }
+      }
+      typeChar();
+    }
+  </script>
+</body>
+</html>
